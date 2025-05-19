@@ -1,0 +1,102 @@
+﻿@{
+    var hideNavbar = Context.Request.Path.Value?.ToLower().Contains("/membership") == true;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MiDAS Fitness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="bg-gray-100">
+    <header>
+        @if (!hideNavbar)
+        {
+            <nav class="bg-red-600">
+                <div class="container mx-auto flex items-center justify-between py-4 px-4">
+                    <a class="flex items-center space-x-2" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/images/gym logo.png" alt="MiDAS Fitness" class="h-10 w-10 rounded-full" />
+                        <span class="text-white font-bold text-2xl tracking-wide">MiDAS FITNESS</span>
+                    </a>
+                    <ul class="flex-1 flex justify-center space-x-8">
+                        
+                        
+                            @{
+                                string currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+                                string currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+                            }
+                            <ul class="flex-1 flex justify-center space-x-8">
+                                <li class="@(currentController == "Home" && currentAction == "Index" ? "border-b-2 border-yellow-400" : "")">
+                                    <a class="text-white text-lg font-medium hover:underline" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="@(currentController == "Home" && currentAction == "About" ? "border-b-2 border-yellow-400" : "")">
+                                    <a class="text-white text-lg font-medium hover:underline" asp-controller="Home" asp-action="About">About</a>
+                                </li>
+                         
+                                <li class="@(currentController == "Blog" && currentAction == "Index" ? "border-b-2 border-yellow-400" : "")">
+                                    <a class="text-white text-lg font-medium hover:underline" asp-controller="Blog" asp-action="Index">Blog</a>
+                                </li>
+                                <li class="@(currentController == "Home" && currentAction == "Contact" ? "border-b-2 border-yellow-400" : "")">
+                                    <a class="text-white text-lg font-medium hover:underline" asp-controller="Home" asp-action="Contact">Contact</a>
+                                </li>
+                    @*         </ul> *@
+                    @*     <li><a class="text-white text-lg font-medium hover:underline" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li> *@
+                    @*     <li><a class="text-white text-lg font-medium hover:underline" asp-area="" asp-controller="Home" asp-action="About">About</a></li> *@
+                    @*     <li><a class="text-white text-lg font-medium hover:underline" asp-area="" asp-controller="Membership" asp-action="Index">Membership</a></li> *@
+                    @*     <li><a class="text-white text-lg font-medium hover:underline" asp-area="" asp-controller="Blog" asp-action="Index">Blog</a></li> *@
+                    @*     <li><a class="text-white text-lg font-medium hover:underline" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li> *@
+                    @* </ul> *@
+                    <a class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded-lg transition" asp-area="" asp-controller="Membership" asp-action="GetStarted">GET STARTED</a>
+                </div>
+            </nav>
+        }
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="border-t bg-black text-white py-8 mt-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:justify-between gap-8">
+                <div>
+                    <h5 class="text-xl font-bold mb-2">MiDAS Fitness</h5>
+                    <p class="mb-4">Get your body in shape with MiDAS Fitness. Your results just got easier.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" title="Facebook" class="hover:text-red-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter" class="hover:text-red-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram" class="hover:text-red-400"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="YouTube" class="hover:text-red-400"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-xl font-bold mb-2">Quick Links</h5>
+                    <ul class="space-y-2">
+                        <li><a class="text-white hover:underline" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a class="text-white hover:underline" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a class="text-white hover:underline" asp-area="" asp-controller="Membership" asp-action="Index">Membership</a></li>
+                        <li><a class="text-white hover:underline" asp-area="" asp-controller="Blog" asp-action="Index">Blog</a></li>
+                        <li><a class="text-white hover:underline" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-xl font-bold mb-2">Contact Us</h5>
+                    <address class="not-italic">
+                        <strong>MiDAS Fitness</strong><br>
+                        123 Fitness Street<br>
+                        Lagos, Nigeria<br>
+                        <abbr title="Phone">P:</abbr> +234 123 456 7890
+                    </address>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                &copy; 2023 - MiDAS Fitness - <a class="text-red-400 hover:underline" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </div>
+    </footer>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
