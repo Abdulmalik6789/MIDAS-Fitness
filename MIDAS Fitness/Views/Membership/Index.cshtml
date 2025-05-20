@@ -20,6 +20,8 @@
             <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Terms &amp; Conditions</div>
             <div class="flex-1 h-px bg-gray-300"></div>
         </div>
+        <!-- Add extra space between Terms & Conditions and Payment -->
+        <div class="w-8"></div>
         <div class="flex-1 flex items-center">
             <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Payment</div>
             <div class="flex-1 h-px bg-gray-300"></div>
@@ -36,12 +38,13 @@
         <div class="space-y-6">
             @foreach (var offer in Model)
             {
-                <div class="flex flex-col md:flex-row justify-between items-center bg-blue-300 hover:bg-blue-400 transition rounded-lg p-6 cursor-pointer"
+                <div class="flex flex-col md:flex-row justify-between items-center bg-black hover:bg-gray-900 transition rounded-lg p-6 cursor-pointer text-white"
                      onclick="location.href='@Url.Action("Details", "Membership", new { id = offer.Id })'">
                     <div>
                         <div class="text-xl font-bold">@offer.Title</div>
                         <div class="text-base">@offer.Duration</div>
-                        <div class="text-base line-through">₦@offer.SignupFee:N2 Signup Fee</div>
+                        <div class="text-sm italic text-gray-300 mb-2">Best value for long-term commitment</div>
+                        <div class="text-base">₦@offer.SignupFee:N2 Signup Fee</div>
                         <div class="text-base">(plus ₦@offer.Tax:N2 tax)</div>
                         <div class="text-base">Location: @offer.Location</div>
                     </div>
@@ -53,9 +56,11 @@
                 </div>
             }
         </div>
-        <button onclick="location.href='@Url.Action("Index", "Home")'"
-                class="mt-8 px-6 py-2 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300 transition">
-            Cancel
-        </button>
+        <div class="flex justify-center">
+            <button onclick="location.href='@Url.Action("Index", "Home")'"
+                    class="mt-8 px-6 py-2 bg-gray-200 text-gray-700 rounded text-sm hover:bg-red-500 hover:text-white transition">
+                Cancel
+            </button>
+        </div>
     </div>
 </div>
