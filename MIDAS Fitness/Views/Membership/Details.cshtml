@@ -1,4 +1,9 @@
-﻿@{
+﻿@* @{ *@
+@*     ViewData["Title"] = "Membership Details"; *@
+@* } *@
+
+@model MIDAS_Fitness.Models.PersonalDetails
+@{
     ViewData["Title"] = "Membership Details";
 }
 
@@ -30,5 +35,67 @@
             <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Confirmation</div>
         </div>
     </div>
-    <!-- Add your details content here -->
+    <h2 class="text-4xl font-bold text-center mb-10">Your Personal Details</h2>
+    <form asp-action="Details" asp-controller="Membership" asp-route-id="@ViewBag.OfferId" method="post" enctype="multipart/form-data" class="w-full max-w-3xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex flex-col items-end space-y-4 text-right">
+                <label class="font-medium">First Name *</label>
+                <label class="font-medium">Last Name *</label>
+                <label class="font-medium">Date of Birth *</label>
+                <label class="font-medium">Email *</label>
+                <label class="font-medium">Password *</label>
+                <label class="font-medium">Confirm Password *</label>
+                <label class="font-medium">Cell Phone *</label>
+                <label class="font-medium">Street *</label>
+                <label class="font-medium">City *</label>
+                <label class="font-medium">Postal Code *</label>
+                <label class="font-medium">Start Date *</label>
+                <label class="font-medium">Organize Payment in Facility</label>
+                <label class="font-medium">Add Profile Photo *</label>
+            </div>
+            <div class="flex flex-col space-y-4">
+                <input asp-for="FirstName" class="border rounded px-3 py-2 w-full" placeholder="Adam" />
+                <input asp-for="LastName" class="border rounded px-3 py-2 w-full" placeholder="Smith" />
+                <input asp-for="DateOfBirth" type="date" class="border rounded px-3 py-2 w-full" placeholder="mm-dd-yyyy" />
+                <input asp-for="Email" type="email" class="border rounded px-3 py-2 w-full" placeholder="email@example.com" />
+                <input asp-for="PasswordHash" type="password" class="border rounded px-3 py-2 w-full" placeholder="Password" />
+                <input name="confirmPassword" type="password" class="border rounded px-3 py-2 w-full" placeholder="Password" />
+                <input asp-for="CellPhone" class="border rounded px-3 py-2 w-full" placeholder="021 452 3872" />
+                <input asp-for="Street" class="border rounded px-3 py-2 w-full" placeholder="123 Home Road" />
+                <input asp-for="City" class="border rounded px-3 py-2 w-full" placeholder="Christchurch" />
+                <input asp-for="PostalCode" class="border rounded px-3 py-2 w-full" placeholder="8075" />
+                <input asp-for="StartDate" type="date" class="border rounded px-3 py-2 w-full" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <input asp-for="OrganizePaymentInFacility" type="checkbox" class="mt-2" />
+                <div class="flex space-x-2">
+                    <input type="file" name="profilePhoto" accept="image/*" class="border rounded px-3 py-2 w-full" />
+                    <input type="hidden" name="takePhotoData" id="takePhotoData" />
+                    <button type="button" class="border rounded px-3 py-2 w-full" onclick="openCamera()">Take Photo</button>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="mt-8 w-full bg-black text-white py-3 rounded font-bold text-lg">Continue</button>
+    </form>
 </div>
+
+@section Scripts {
+    <script>
+        function openCamera() {
+            // Simple camera capture using browser API
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.capture = 'environment';
+            input.onchange = function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById('takePhotoData').value = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        }
+    </script>
+}
