@@ -7,79 +7,29 @@
     <img src="~/images/gym logo.png" alt="MiDAS Fitness" class="w-48 h-48 object-contain mb-8" />
 
     <!-- Progress Steps -->
-    <div class="flex flex-col sm:flex-row items-center justify-center w-full max-w-3xl mb-10 px-2 stepper">
-        <div class="flex items-center w-full sm:w-auto">
-            <div class="step completed bg-black text-white px-4 py-2 rounded-lg font-semibold text-center text-sm sm:text-base min-w-[90px]">Membership</div>
-            <div class="line hidden sm:block h-0.5 w-6 bg-gray-300 mx-2"></div>
+    <div class="flex items-center justify-center mb-10 w-full max-w-3xl">
+        <div class="flex-1 flex items-center">
+            <div class="bg-black text-white px-6 py-3 rounded-lg font-semibold">Membership</div>
+            <div class="flex-1 h-px bg-gray-300"></div>
         </div>
-        <div class="flex items-center w-full sm:w-auto">
-            <div class="step active bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold text-center text-sm sm:text-base min-w-[90px]">Details</div>
-            <div class="line hidden sm:block h-0.5 w-6 bg-gray-300 mx-2"></div>
+        <div class="flex-1 flex items-center">
+            <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Details</div>
+            <div class="flex-1 h-px bg-gray-300"></div>
         </div>
-        <div class="flex items-center w-full sm:w-auto">
-            <div class="step bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-semibold text-center text-sm sm:text-base min-w-[90px]">
-                <span>Terms &</span>
-                <span class="block">Conditions</span>
+        <div class="flex-1 flex items-center">
+            <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">
+                Terms &<br />Conditions
             </div>
-            <div class="line hidden sm:block h-0.5 w-6 bg-gray-300 mx-2"></div>
+            <div class="flex-1 h-px bg-gray-300"></div>
         </div>
-        <div class="flex items-center w-full sm:w-auto">
-            <div class="step bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-semibold text-center text-sm sm:text-base min-w-[90px]">Payment</div>
-            <div class="line hidden sm:block h-0.5 w-6 bg-gray-300 mx-2"></div>
+        <div class="flex-1 flex items-center">
+            <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Payment</div>
+            <div class="flex-1 h-px bg-gray-300"></div>
         </div>
-        <div class="flex items-center w-full sm:w-auto">
-            <div class="step bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-semibold text-center text-sm sm:text-base min-w-[90px]">Confirmation</div>
+        <div>
+            <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Confirmation</div>
         </div>
     </div>
-
-    @* <div class="flex flex-wrap items-center justify-center mb-10 w-full max-w-3xl px-2"> *@
-    @*     <div class="flex-1 min-w-[120px] flex items-center mb-2 sm:mb-0"> *@
-    @*         <div class="bg-black text-white px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base text-center w-full">Membership</div> *@
-    @*         <div class="hidden sm:block flex-1 h-px bg-gray-300"></div> *@
-    @*     </div> *@
-    @*     <div class="flex-1 min-w-[120px] flex items-center mb-2 sm:mb-0"> *@
-    @*         <div class="border border-gray-300 px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-gray-700 bg-white text-sm sm:text-base text-center w-full">Details</div> *@
-    @*         <div class="hidden sm:block flex-1 h-px bg-gray-300"></div> *@
-    @*     </div> *@
-    @*     <div class="flex-1 min-w-[120px] flex items-center mb-2 sm:mb-0"> *@
-    @*         <div class="border border-gray-300 px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-gray-700 bg-white flex flex-col items-center justify-center leading-tight text-sm sm:text-base w-full"> *@
-    @*             <span>Terms &</span> *@
-    @*             <span>Conditions</span> *@
-    @*         </div> *@
-    @*         <div class="hidden sm:block flex-1 h-px bg-gray-300"></div> *@
-    @*     </div> *@
-    @*     <div class="flex-1 min-w-[120px] flex items-center mb-2 sm:mb-0"> *@
-    @*         <div class="border border-gray-300 px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-gray-700 bg-white text-sm sm:text-base text-center w-full">Payment</div> *@
-    @*         <div class="hidden sm:block flex-1 h-px bg-gray-300"></div> *@
-    @*     </div> *@
-    @*     <div class="flex-1 min-w-[120px] flex items-center"> *@
-    @*         <div class="border border-gray-300 px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-gray-700 bg-white text-sm sm:text-base text-center w-full">Confirmation</div> *@
-    @*     </div> *@
-    @* </div> *@
-
-    @* <div class="flex items-center justify-center mb-10 w-full max-w-3xl"> *@
-    @*     <div class="flex-1 flex items-center"> *@
-    @*         <div class="bg-black text-white px-6 py-3 rounded-lg font-semibold">Membership</div> *@
-    @*         <div class="flex-1 h-px bg-gray-300"></div> *@
-    @*     </div> *@
-    @*     <div class="flex-1 flex items-center"> *@
-    @*         <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Details</div> *@
-    @*         <div class="flex-1 h-px bg-gray-300"></div> *@
-    @*     </div> *@
-    @*     <div class="flex-1 flex items-center"> *@
-    @*         <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white"> *@
-    @*             Terms &<br />Conditions *@
-    @*         </div> *@
-    @*         <div class="flex-1 h-px bg-gray-300"></div> *@
-    @*     </div> *@
-    @*     <div class="flex-1 flex items-center"> *@
-    @*         <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Payment</div> *@
-    @*         <div class="flex-1 h-px bg-gray-300"></div> *@
-    @*     </div> *@
-    @*     <div> *@
-    @*         <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Confirmation</div> *@
-    @*     </div> *@
-    @* </div> *@
 
     <h2 class="text-4xl font-bold text-gray-800 mb-8">Choose a Membership</h2>
 
