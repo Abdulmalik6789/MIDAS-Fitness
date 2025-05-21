@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "About - Fly Fitness";
+}
+
+<div class="min-h-screen flex flex-col">
+    <!-- Hero Section -->
+    <div class="relative h-[500px] bg-black">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/70 z-10"></div>
+
+        <!-- Background Video -->
+        <video class="absolute top-0 left-0 w-full h-full object-cover z-0 pointer-events-none"
+               autoplay
+               loop
+               muted
+               playsinline>
+            <source src="~/videos/3196220-uhd_3840_2160_25fps.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Hero Content -->
+        <div class="relative z-20 container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+            <p class="text-lg mb-4">GET YOUR BODY IN SHAPE</p>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">WITH FLY FITNESS FACTORY</h1>
+            <h2 class="text-4xl md:text-6xl font-bold mb-8">YOUR RESULTS JUST GOT EASIER</h2>
+            <p class="text-lg mb-8">
+                You do the work, we guide you, support you, and help you attain your goals.
+            </p>
+            <a href="/membership"
+               class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-md transition duration-300">
+                VIEW MEMBERSHIP PLANS
+            </a>
+        </div>
+    </div>
+</div>
