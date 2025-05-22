@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MIDAS_Fitness.Models;
+using MIDAS_Fitness.Data;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -7,6 +8,13 @@ namespace MIDAS_Fitness.Controllers
 {
     public class MembershipController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public MembershipController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         private static List<MembershipOffer> GetOffers() => new List<MembershipOffer>
             {
                 new MembershipOffer { Id = 1, Title = "1 Year Akala", Duration = "12 months access", SignupFee = 10750, Tax = 0, FullCost = 209700, Location = "Akala" },
@@ -28,18 +36,17 @@ namespace MIDAS_Fitness.Controllers
         {
             var offer = GetOffers().FirstOrDefault(o => o.Id == id);
             if (offer == null) return NotFound();
-            return View(offer);
+
+            ViewBag.OfferId = id;
+            ViewData["Offer"] = offer;
+
+            return View();
         }
-
-        [HttpGet]
-
         [HttpPost]
-        public async Task<IActionResult> Details(int id, PersonalDetails model, string confirmPassword, IFormFile profilePhoto, string takePhotoData)
+        public async Task<IActionResult> Details(int id, PersonalDetails model, IFormFile profilePhoto, string photoData)
         {
-            if (!ModelState.IsValid || model.PasswordHash != confirmPassword)
+            if (!ModelState.IsValid)
             {
-                if (model.PasswordHash != confirmPassword)
-                    ModelState.AddModelError("PasswordHash", "Passwords do not match.");
                 return View(model);
             }
 
@@ -63,10 +70,10 @@ namespace MIDAS_Fitness.Controllers
                 }
                 model.ProfilePhotoPath = fileName;
             }
-            else if (!string.IsNullOrEmpty(takePhotoData))
+            else if (!string.IsNullOrEmpty(photoData))
             {
-                // takePhotoData is expected to be a base64 string: "data:image/png;base64,...."
-                var base64Data = takePhotoData.Substring(takePhotoData.IndexOf(",") + 1);
+                // photoData is expected to be a base64 string: "data:image/png;base64,...."
+                var base64Data = photoData.Substring(photoData.IndexOf(",") + 1);
                 var bytes = Convert.FromBase64String(base64Data);
                 var fileName = $"{Guid.NewGuid()}.png";
                 var filePath = Path.Combine(assetsPath, fileName);
@@ -74,11 +81,56 @@ namespace MIDAS_Fitness.Controllers
                 model.ProfilePhotoPath = fileName;
             }
 
-            // TODO: Save 'model' to your database (EF Core or other)
-            // Example: _context.PersonalDetails.Add(model); await _context.SaveChangesAsync();
+            // Save to database
+            try
+            {
+                _context.PersonalDetails.Add(model);
+                await _context.SaveChangesAsync();
 
-            // Redirect or show success
-            return RedirectToAction("Payment");
+                // Set success message
+                TempData["SuccessMessage"] = "Your details have been saved successfully!";
+
+                // Redirect to Terms & Conditions
+                return RedirectToAction("Terms", new { id = id, userId = model.Id });
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "An error occurred while saving your details. Please try again.");
+                return View(model);
+            }
         }
+
+
+        public IActionResult Terms(int id, int userId)
+        {
+            var offer = GetOffers().FirstOrDefault(o => o.Id == id);
+            if (offer == null) return NotFound();
+
+            // Get the user details
+            var user = _context.PersonalDetails.Find(userId);
+            if (user == null) return NotFound();
+
+            ViewBag.OfferId = id;
+            ViewBag.UserId = userId;
+            ViewData["Offer"] = offer;
+            ViewData["User"] = user;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AcceptTerms(int id, int userId, bool acceptTerms)
+        {
+            if (!acceptTerms)
+            {
+                TempData["ErrorMessage"] = "You must accept the terms and conditions to continue.";
+                return RedirectToAction("Terms", new { id = id, userId = userId });
+            }
+
+         
+            // Redirect to payment
+            return RedirectToAction("Payment", new { id = id, userId = userId });
+        }
+
     }
 }

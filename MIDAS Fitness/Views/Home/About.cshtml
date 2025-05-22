@@ -26,14 +26,12 @@
             <p class="text-lg mb-8">
                 You do the work, we guide you, support you, and help you attain your goals.
             </p>
-            <a href="/membership"
-               class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-md transition duration-300" asp-area="" asp-controller="Membership" asp-action="Index">
+            <a class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-md transition duration-300"
+               asp-controller="Membership" asp-action="Index">
                 VIEW MEMBERSHIP PLANS
             </a>
         </div>
     </div>
-
-   
 
     <!-- Introduction Section -->
     <section class="py-20 bg-white">
@@ -227,14 +225,16 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                 <!-- Vision -->
                 <div class="relative">
-                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-stone-800 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                    </div>
                     <div class="border border-stone-700 p-8 rounded-lg">
-                        <h3 class="text-2xl font-bold mb-4">Our Vision</h3>
+                        <div class="flex items-center mb-4">
+                            <span class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </span>
+                            <h3 class="text-2xl font-bold">Our Vision</h3>
+                        </div>
                         <p class="text-stone-300 mb-6">
                             To provide comfortable and affordable services in the communities we operate.
                         </p>
@@ -247,13 +247,15 @@
 
                 <!-- Mission -->
                 <div class="relative">
-                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-stone-800 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                    </div>
                     <div class="border border-stone-700 p-8 rounded-lg">
-                        <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
+                        <div class="flex items-center mb-4">
+                            <span class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </span>
+                            <h3 class="text-2xl font-bold">Our Mission</h3>
+                        </div>
                         <p class="text-stone-300 mb-6">
                             To serve, relate with, and create good memories with our patrons.
                         </p>
@@ -275,11 +277,11 @@
                 <p class="text-stone-600 mb-8 text-lg">
                     Join MIDAS FITNESS today and start your journey to a healthier, happier you.
                 </p>
-                <a href="#" class="inline-block px-8 py-4 bg-stone-800 text-white font-medium rounded-lg shadow-sm transition-all duration-300 hover:bg-stone-700 hover:shadow-md" asp-area="" asp-controller="Membership" asp-action="Index">
+                <a class="inline-block px-8 py-4 bg-stone-800 text-white font-medium rounded-lg shadow-sm transition-all duration-300 hover:bg-stone-700 hover:shadow-md"
+                   asp-controller="Membership" asp-action="Index">
                     Become a Member
                 </a>
             </div>
         </div>
     </section>
-   
 </div>
