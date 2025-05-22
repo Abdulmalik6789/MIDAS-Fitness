@@ -1,17 +1,14 @@
-﻿@* @{ *@
-@*     ViewData["Title"] = "Membership Details"; *@
-@* } *@
-
-@model MIDAS_Fitness.Models.PersonalDetails
+﻿@model MIDAS_Fitness.Models.PersonalDetails
 @{
     ViewData["Title"] = "Membership Details";
+    var offer = ViewData["Offer"] as MIDAS_Fitness.Models.MembershipOffer;
 }
 
-<div class="flex flex-col items-center py-10">
+<div class="flex flex-col items-center py-10 w-full">
     <img src="~/images/gym logo.png" alt="MiDAS Fitness" class="w-48 h-48 object-contain mb-8" />
 
     <!-- Progress Steps -->
-    <div class="flex items-center justify-center mb-10 w-full max-w-3xl">
+    <div class="flex items-center justify-center mb-10 w-full max-w-4xl">
         <div class="flex-1 flex items-center">
             <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Membership</div>
             <div class="flex-1 h-px bg-gray-300"></div>
@@ -35,67 +32,289 @@
             <div class="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 bg-white">Confirmation</div>
         </div>
     </div>
-    <h2 class="text-4xl font-bold text-center mb-10">Your Personal Details</h2>
-    <form asp-action="Details" asp-controller="Membership" asp-route-id="@ViewBag.OfferId" method="post" enctype="multipart/form-data" class="w-full max-w-3xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="flex flex-col items-end space-y-4 text-right">
-                <label class="font-medium">First Name *</label>
-                <label class="font-medium">Last Name *</label>
-                <label class="font-medium">Date of Birth *</label>
-                <label class="font-medium">Email *</label>
-                <label class="font-medium">Password *</label>
-                <label class="font-medium">Confirm Password *</label>
-                <label class="font-medium">Cell Phone *</label>
-                <label class="font-medium">Street *</label>
-                <label class="font-medium">City *</label>
-                <label class="font-medium">Postal Code *</label>
-                <label class="font-medium">Start Date *</label>
-                <label class="font-medium">Organize Payment in Facility</label>
-                <label class="font-medium">Add Profile Photo *</label>
-            </div>
-            <div class="flex flex-col space-y-4">
-                <input asp-for="FirstName" class="border rounded px-3 py-2 w-full" placeholder="Adam" />
-                <input asp-for="LastName" class="border rounded px-3 py-2 w-full" placeholder="Smith" />
-                <input asp-for="DateOfBirth" type="date" class="border rounded px-3 py-2 w-full" placeholder="mm-dd-yyyy" />
-                <input asp-for="Email" type="email" class="border rounded px-3 py-2 w-full" placeholder="email@example.com" />
-                <input asp-for="PasswordHash" type="password" class="border rounded px-3 py-2 w-full" placeholder="Password" />
-                <input name="confirmPassword" type="password" class="border rounded px-3 py-2 w-full" placeholder="Password" />
-                <input asp-for="CellPhone" class="border rounded px-3 py-2 w-full" placeholder="021 452 3872" />
-                <input asp-for="Street" class="border rounded px-3 py-2 w-full" placeholder="123 Home Road" />
-                <input asp-for="City" class="border rounded px-3 py-2 w-full" placeholder="Christchurch" />
-                <input asp-for="PostalCode" class="border rounded px-3 py-2 w-full" placeholder="8075" />
-                <input asp-for="StartDate" type="date" class="border rounded px-3 py-2 w-full" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6 w-full max-w-4xl" role="alert">
+            <strong class="font-bold">Error!</strong>
+            <span class="block sm:inline">@TempData["ErrorMessage"]</span>
+        </div>
+    }
+
+    <h1 class="text-3xl font-bold text-center mb-8">Your Personal Details</h1>
+
+    <form asp-action="Details" asp-controller="Membership" asp-route-id="@ViewBag.OfferId" method="post" enctype="multipart/form-data" class="w-full max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-[250px_1fr] items-center gap-4">
+            <label asp-for="FirstName" class="font-medium text-right">
+                First Name <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="FirstName" class="border rounded px-3 py-2 w-full" placeholder="Adam" required />
+
+            <label asp-for="LastName" class="font-medium text-right">
+                Last Name <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="LastName" class="border rounded px-3 py-2 w-full" placeholder="Smith" required />
+
+            <label asp-for="DateOfBirth" class="font-medium text-right">
+                Date of Birth <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="DateOfBirth" type="date" class="border rounded px-3 py-2 w-full" placeholder="mm-dd-yyyy" required />
+
+            <label asp-for="Email" class="font-medium text-right">
+                Email <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="Email" type="email" class="border rounded px-3 py-2 w-full" placeholder="email@example.com" required />
+
+            <label asp-for="PasswordHash" class="font-medium text-right">
+                Password <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="PasswordHash" type="password" class="border rounded px-3 py-2 w-full" placeholder="Password" required />
+
+            <label for="confirmPassword" class="font-medium text-right">
+                Confirm Password <span class="text-red-500">*</span>
+            </label>
+            <input name="confirmPassword" type="password" class="border rounded px-3 py-2 w-full" placeholder="Password" required />
+
+            <label asp-for="CellPhone" class="font-medium text-right">
+                Cell Phone <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="CellPhone" class="border rounded px-3 py-2 w-full" placeholder="021 452 3872" required />
+
+            <label asp-for="Street" class="font-medium text-right">
+                Street <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="Street" class="border rounded px-3 py-2 w-full" placeholder="123 Home Road" required />
+
+            <label asp-for="City" class="font-medium text-right">
+                City <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="City" class="border rounded px-3 py-2 w-full" placeholder="Christchurch" required />
+
+            <label asp-for="PostalCode" class="font-medium text-right">
+                Postal Code <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="PostalCode" class="border rounded px-3 py-2 w-full" placeholder="8075" required />
+
+            <label asp-for="StartDate" class="font-medium text-right">
+                Start Date <span class="text-red-500">*</span>
+            </label>
+            <input asp-for="StartDate" type="date" class="border rounded px-3 py-2 w-full" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+
+            <label asp-for="OrganizePaymentInFacility" class="font-medium text-right">
+                Organize Payment in Facility
+            </label>
+            <div>
                 <input asp-for="OrganizePaymentInFacility" type="checkbox" class="mt-2" />
-                <div class="flex space-x-2">
-                    <input type="file" name="profilePhoto" accept="image/*" class="border rounded px-3 py-2 w-full" />
-                    <input type="hidden" name="takePhotoData" id="takePhotoData" />
-                    <button type="button" class="border rounded px-3 py-2 w-full" onclick="openCamera()">Take Photo</button>
+            </div>
+
+            <label class="font-medium text-right">
+                Add Profile Photo <span class="text-red-500">*</span>
+            </label>
+            <div class="flex gap-4">
+                <button type="button" class="border rounded px-3 py-2 w-full" onclick="openCamera()">Take Photo</button>
+                <button type="button" class="border rounded px-3 py-2 w-full" onclick="triggerFileUpload()">Upload Photo</button>
+                <input type="file" id="profilePhotoInput" name="profilePhoto" accept="image/*" class="hidden" onchange="handleFileUpload(this)" />
+                <input type="hidden" name="photoData" id="photoData" />
+            </div>
+
+            <div id="capturedPhotoContainer" class="col-span-2 mt-4 flex justify-center hidden">
+                <div class="border p-2 rounded-md w-48 h-48">
+                    <img id="capturedPhoto" src="/placeholder.svg" alt="Profile" class="w-full h-full object-cover" />
                 </div>
             </div>
         </div>
-        <button type="submit" class="mt-8 w-full bg-black text-white py-3 rounded font-bold text-lg">Continue</button>
+
+        <!-- Membership Summary -->
+        <div class="mt-10 bg-gray-100 rounded-lg p-6 w-full">
+            <h2 class="text-2xl font-semibold mb-4">Selected Membership</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="font-medium">Membership</div>
+                <div>@offer?.Title</div>
+
+                <div class="font-medium">Description</div>
+                <div>@offer?.Duration</div>
+
+                <div class="font-medium">Price</div>
+                <div>₦@(offer?.FullCost.ToString("N2")) Full Cost (plus ₦@(offer?.Tax.ToString("N2")) tax)</div>
+
+                <div class="font-medium">Signup Fee</div>
+                <div>₦@(offer?.SignupFee.ToString("N2")) (plus ₦@(offer?.Tax.ToString("N2")) tax)</div>
+
+                <div class="font-medium">Membership Start Date</div>
+                <div>@DateTime.Now.ToString("MMMM dd yyyy")</div>
+
+
+                <div class="font-medium">Transaction fees may apply</div>
+                <div></div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-between gap-4">
+            <a href="@Url.Action("Index", "Membership")" class="px-6 py-2 border border-gray-300 rounded font-medium text-gray-700 hover:bg-red-600 hover:text-white hover:border-red-600 transition-colors">
+                Back
+            </a>
+            <button type="submit" class="px-6 py-2 bg-black text-white rounded font-medium">
+                Signup
+            </button>
+        </div>
     </form>
+
+    <!-- Camera Modal -->
+    <div id="cameraModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Take Profile Photo</h3>
+                <button onclick="closeCamera()" class="text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div id="cameraContainer" class="relative">
+                <video id="video" class="w-full h-auto rounded-md" autoplay playsinline></video>
+                <button id="captureBtn" onclick="takePhoto()" class="mt-4 w-full bg-black text-white py-2 rounded font-medium">
+                    Capture
+                </button>
+            </div>
+
+            <div id="previewContainer" class="relative hidden">
+                <img id="preview" src="/placeholder.svg" alt="Captured" class="w-full h-auto rounded-md" />
+                <div class="flex justify-center gap-4 mt-4">
+                    <button onclick="undoPhoto()" class="border border-gray-300 rounded px-4 py-2 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Undo
+                    </button>
+                    <button onclick="confirmPhoto()" class="bg-black text-white rounded px-4 py-2 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Confirm
+                    </button>
+                </div>
+            </div>
+
+            <canvas id="canvas" class="hidden"></canvas>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
     <script>
+        let stream = null;
+
         function openCamera() {
-            // Simple camera capture using browser API
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.capture = 'environment';
-            input.onchange = function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        document.getElementById('takePhotoData').value = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            };
-            input.click();
+            const cameraModal = document.getElementById('cameraModal');
+            const video = document.getElementById('video');
+            const cameraContainer = document.getElementById('cameraContainer');
+            const previewContainer = document.getElementById('previewContainer');
+
+            cameraModal.classList.remove('hidden');
+            cameraContainer.classList.remove('hidden');
+            previewContainer.classList.add('hidden');
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(mediaStream) {
+                    stream = mediaStream;
+                    video.srcObject = mediaStream;
+                    video.play();
+                })
+                .catch(function(err) {
+                    console.error("Error accessing camera:", err);
+                    alert("Could not access camera. Please check permissions.");
+                });
+        }
+
+        function takePhoto() {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const preview = document.getElementById('preview');
+            const cameraContainer = document.getElementById('cameraContainer');
+            const previewContainer = document.getElementById('previewContainer');
+
+            // Set canvas dimensions to match video
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Draw the video frame to the canvas
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convert canvas to data URL
+            const imageData = canvas.toDataURL('image/png');
+            preview.src = imageData;
+
+            // Show preview container, hide camera container
+            cameraContainer.classList.add('hidden');
+            previewContainer.classList.remove('hidden');
+        }
+
+        function undoPhoto() {
+            const cameraContainer = document.getElementById('cameraContainer');
+            const previewContainer = document.getElementById('previewContainer');
+
+            // Show camera container, hide preview container
+            cameraContainer.classList.remove('hidden');
+            previewContainer.classList.add('hidden');
+        }
+
+        function confirmPhoto() {
+            const canvas = document.getElementById('canvas');
+            const photoData = document.getElementById('photoData');
+            const capturedPhoto = document.getElementById('capturedPhoto');
+            const capturedPhotoContainer = document.getElementById('capturedPhotoContainer');
+
+            // Get image data from canvas
+            const imageData = canvas.toDataURL('image/png');
+
+            // Set the hidden input value
+            photoData.value = imageData;
+
+            // Display the captured photo in the form
+            capturedPhoto.src = imageData;
+            capturedPhotoContainer.classList.remove('hidden');
+
+            // Close the camera modal
+            closeCamera();
+        }
+
+        function triggerFileUpload() {
+            document.getElementById('profilePhotoInput').click();
+        }
+
+        function handleFileUpload(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const capturedPhoto = document.getElementById('capturedPhoto');
+                    const capturedPhotoContainer = document.getElementById('capturedPhotoContainer');
+
+                    // Display the uploaded image
+                    capturedPhoto.src = e.target.result;
+                    capturedPhotoContainer.classList.remove('hidden');
+
+                    // Store the image data in the hidden input
+                    document.getElementById('photoData').value = e.target.result;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function closeCamera() {
+            const cameraModal = document.getElementById('cameraModal');
+
+            // Stop all video streams
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+
+            // Hide the modal
+            cameraModal.classList.add('hidden');
         }
     </script>
 }
